@@ -21,7 +21,7 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  memberships GroupMembership[]
+  memberships GroupMembers[]
   todos       TodoItem[]
   Group       Group[]
 }
@@ -35,11 +35,11 @@ model Group {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  memberships GroupMembership[]
-  todos       TodoItem[]
+  members GroupMembers[]
+  todos   TodoItem[]
 }
 
-model GroupMembership {
+model GroupMembers {
   id        String   @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String

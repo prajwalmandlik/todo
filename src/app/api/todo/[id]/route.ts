@@ -2,25 +2,34 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 
-export async function GET(req: Request) {
+export async function PUT(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     const user = await auth();
+    const { title, description, dueDate, completed } = await req.json();
+    const { id } = await params;
 
     if (user?.user?.id === undefined) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const todos = await prisma.todoItem.findMany({
+    const todo = await prisma.todoItem.update({
       where: {
-        userId: user?.user?.id,
+        id,
       },
-      orderBy: {
-        createdAt: "desc",
+      data: {
+        title,
+        description,
+        dueDate: dueDate ? new Date(dueDate) : null,
+        completed,
       },
     });
-    return NextResponse.json({ data: todos });
+
+    return NextResponse.json({ data: todo });
   } catch (error) {
-    console.error("Get Todos Error:", error);
+    console.error("Update Todo Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
@@ -28,29 +37,27 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: Request) {
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     const user = await auth();
-    const { title, description, dueDate, groupId } = await req.json();
+    const { id } = await params;
 
     if (user?.user?.id === undefined) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const todo = await prisma.todoItem.create({
-      data: {
-        title,
-        description,
-        dueDate: dueDate ? new Date(dueDate) : null,
-        userId: user?.user?.id,
-        groupId: groupId || null,
-        completed: false,
+    const todo = await prisma.todoItem.delete({
+      where: {
+        id,
       },
     });
 
     return NextResponse.json({ data: todo });
   } catch (error) {
-    console.error("Create Todo Error:", error);
+    console.error("Delete Todo Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

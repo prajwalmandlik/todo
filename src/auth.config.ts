@@ -1,9 +1,9 @@
 import type { NextAuthConfig } from "next-auth";
 
-
 export const authConfig = {
   pages: {
     signIn: "/auth/login",
+    error: "/auth/login",
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -19,7 +19,7 @@ export const authConfig = {
     },
     authorized: ({ auth, request: { nextUrl } }) => {
       // Define public routes
-      const publicRoutes = [ "/auth/login", "/auth/register"];
+      const publicRoutes = ["/auth/login", "/auth/register"];
       const { pathname } = nextUrl;
 
       // Allow access to public routes

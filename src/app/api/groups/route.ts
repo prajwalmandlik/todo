@@ -10,15 +10,26 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const todos = await prisma.todoItem.findMany({
+    const groups = await prisma.group.findMany({
       where: {
-        userId: user?.user?.id,
+        members: {
+          some: {
+            userId: user?.user?.id,
+          },
+        },
       },
-      orderBy: {
-        createdAt: "desc",
+      include: {
+        _count: {
+          select: {
+            members: true,
+          },
+        },
+        createdBy: true,
+        members: true,
       },
     });
-    return NextResponse.json({ data: todos });
+
+    return NextResponse.json({ data: groups });
   } catch (error) {
     console.error("Get Todos Error:", error);
     return NextResponse.json(
@@ -31,24 +42,28 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const user = await auth();
-    const { title, description, dueDate, groupId } = await req.json();
+    const { name } = await req.json();
 
     if (user?.user?.id === undefined) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const todo = await prisma.todoItem.create({
+    const inviteCode = Math.random().toString(36).substring(7);
+
+    const group = await prisma.group.create({
       data: {
-        title,
-        description,
-        dueDate: dueDate ? new Date(dueDate) : null,
-        userId: user?.user?.id,
-        groupId: groupId || null,
-        completed: false,
+        name,
+        inviteCode,
+        createdById: user.user.id,
+        members: {
+          create: {
+            userId: user?.user?.id,
+          },
+        },
       },
     });
 
-    return NextResponse.json({ data: todo });
+    return NextResponse.json({ data: group });
   } catch (error) {
     console.error("Create Todo Error:", error);
     return NextResponse.json(
