@@ -41,7 +41,7 @@ const DeleteTodo: React.FC<DeleteTodoProps> = ({ id }) => {
 
       if (isGroup) {
         queryClient.invalidateQueries({
-          queryKey: ["group-todos"],
+          queryKey: ["group-details"],
         });
       } else {
         queryClient.invalidateQueries({

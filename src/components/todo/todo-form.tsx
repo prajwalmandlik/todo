@@ -93,9 +93,11 @@ export default function TodoForm({ type = "create", data }: TodoFormProps) {
       toast.success("Todo saved successfully");
       const isGroup = pathname.includes("group");
 
+      console.log("isGroup", isGroup, pathname);
+
       if (isGroup) {
         queryClient.invalidateQueries({
-          queryKey: ["group-todos"],
+          queryKey: ["group-details"],
         });
       } else {
         queryClient.invalidateQueries({

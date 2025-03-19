@@ -25,7 +25,7 @@ const TodoCheckBox: React.FC<TodoCheckBoxProps> = ({ id, checked }) => {
 
       if (isGroup) {
         queryClient.invalidateQueries({
-          queryKey: ["group-todos"],
+          queryKey: ["group-details"],
         });
       } else {
         queryClient.invalidateQueries({
