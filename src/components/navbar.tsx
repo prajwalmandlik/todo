@@ -16,7 +16,6 @@ import React, { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 
 import Link from "next/link";
-import User from "./user";
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);

@@ -77,7 +77,7 @@ export default function TodoForm({ type = "create", data }: TodoFormProps) {
 
   const queryClient = useQueryClient();
 
-  const { mutate, isError, error, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data: z.infer<typeof todoSchema>) => {
       if (type === "create") {
         if (pathname.includes("group")) {

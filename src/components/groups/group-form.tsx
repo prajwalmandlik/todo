@@ -11,7 +11,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Edit } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -66,7 +65,7 @@ export default function GroupForm({ type = "create", data }: groupFormProps) {
 
   const queryClient = useQueryClient();
 
-  const { mutate, isError, error, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data: z.infer<typeof groupSchema>) => {
       if (type === "create") {
         return await createGroup(data);

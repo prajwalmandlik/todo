@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 
 export async function POST(req: Request) {
@@ -13,7 +13,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check if user exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return NextResponse.json(
@@ -22,11 +21,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user in DB
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: { name, email, passwordHash: hashedPassword },
     });
 

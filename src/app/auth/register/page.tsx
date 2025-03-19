@@ -1,7 +1,7 @@
 "use client";
 
 import { Alert, Container, TextField } from "@mui/material";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 
 import Box from "@mui/material/Box";
@@ -41,7 +41,7 @@ const Register = () => {
   const router = useRouter();
 
   const { mutate, isError, error, isPending } = useMutation<
-    any,
+    { message: string },
     AxiosError<customError>,
     z.infer<typeof loginSchema>
   >({

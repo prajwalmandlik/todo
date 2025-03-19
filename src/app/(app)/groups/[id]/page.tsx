@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Alert,
-  Box,
-  Container,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Alert, Container, Skeleton, Stack, Typography } from "@mui/material";
 
 import { Group } from "@/types/groups";
 import React from "react";
@@ -16,15 +9,6 @@ import TodoForm from "@/components/todo/todo-form";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-
-interface Todo {
-  id: string;
-  title: string;
-  description?: string;
-  dueDate?: string;
-  completed: boolean;
-  userId: string;
-}
 
 const GroupDetails = () => {
   const { id } = useParams();
@@ -61,7 +45,7 @@ const GroupDetails = () => {
         )}
         {isSuccess &&
           data &&
-          data.todos.map((todo) => <TodoCard data={todo} />)}
+          data.todos.map((todo) => <TodoCard key={todo.id} data={todo} />)}
       </Stack>
     </Container>
   );

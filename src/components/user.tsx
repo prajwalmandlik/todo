@@ -23,21 +23,25 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(name: string) {
+  const nameParts = name.split(" ");
+  const initials =
+    nameParts.length > 1
+      ? `${nameParts[0][0]}${nameParts[1][0]}`
+      : name.substring(0, 2);
+
   return {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    children: initials,
   };
 }
 
 const User = ({ name }: { name: string }) => {
   return (
-    <>
-      <Tooltip title="Delete">
-        <Avatar {...stringAvatar(name)} />
-      </Tooltip>
-    </>
+    <Tooltip title={name}>
+      <Avatar {...stringAvatar(name)} />
+    </Tooltip>
   );
 };
 

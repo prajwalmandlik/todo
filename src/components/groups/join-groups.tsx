@@ -10,8 +10,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Edit } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -46,7 +44,7 @@ export default function JoinGroup() {
 
   const queryClient = useQueryClient();
 
-  const { mutate, isError, error, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data: z.infer<typeof groupSchema>) => {
       const response = await axios.post("/api/groups/join", data);
       return response.data;

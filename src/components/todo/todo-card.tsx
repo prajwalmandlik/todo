@@ -1,5 +1,4 @@
 import { Card, Typography } from "@mui/material";
-import { useParams, usePathname } from "next/navigation";
 
 import DeleteTodo from "./delete-todo";
 import React from "react";

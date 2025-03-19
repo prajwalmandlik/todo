@@ -3,12 +3,12 @@
 import { Alert, Container, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import React, { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -134,7 +134,7 @@ const LoginPage = () => {
           </Button>
 
           <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a href="/auth/register" className=" text-blue-500">
               Register
             </a>

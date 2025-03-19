@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -9,9 +8,9 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { ContentCopy, Delete, Edit } from "@mui/icons-material";
 
 import CallMadeIcon from "@mui/icons-material/CallMade";
+import { ContentCopy } from "@mui/icons-material";
 import DeleteGroup from "./group-delete";
 import { Group } from "@/types/groups";
 import GroupForm from "./group-form";

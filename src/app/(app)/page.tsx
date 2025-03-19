@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Alert,
-  Box,
-  Container,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Alert, Container, Skeleton, Stack, Typography } from "@mui/material";
 
 import React from "react";
 import TodoCard from "@/components/todo/todo-card";
@@ -56,7 +49,9 @@ const MyTodos = () => {
             Error fetching todos. Please try again later.
           </Alert>
         )}
-        {isSuccess && data && data.map((todo) => <TodoCard data={todo} />)}
+        {isSuccess &&
+          data &&
+          data.map((todo) => <TodoCard key={todo.id} data={todo} />)}
       </Stack>
     </Container>
   );

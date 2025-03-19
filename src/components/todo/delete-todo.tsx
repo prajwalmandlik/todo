@@ -8,10 +8,10 @@ import {
   IconButton,
 } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams, usePathname } from "next/navigation";
 
 import { Delete } from "@mui/icons-material";
 import axios from "axios";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 type DeleteTodoProps = {
